@@ -1,0 +1,8 @@
+syntax:glob
+
+.DS_Store
+
+target
+.classpath
+.project
+.settings
