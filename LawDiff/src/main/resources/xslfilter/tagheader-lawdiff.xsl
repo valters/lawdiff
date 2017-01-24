@@ -18,9 +18,9 @@
 <xsl:template match="/">
    <html>
       <head>
-        <title>XsDiff report</title>
+        <title>LawDiff report</title>
 
-        <link href="css/diff.css" type="text/css" rel="stylesheet"/>
+        <link href="../diff.css" type="text/css" rel="stylesheet"/>
         <xsl:apply-templates select="diffreport/css/node()"/>
       </head>
       <body>

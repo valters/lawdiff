@@ -12,6 +12,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.outerj.daisy.diff.DaisyDiff;
 
+import io.github.valters.lawdiff.HtmlContentOutput.OutputMode;
+
 public class TestDiff {
 
     @Ignore
@@ -23,7 +25,7 @@ public class TestDiff {
         final InputStream test = Thread.currentThread().getContextClassLoader().getResourceAsStream( "law/20041021.html.txt" );
         assertThat( test, notNullValue() );
 
-        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-d.html" ), false );
+        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-d.html" ), OutputMode.XML );
 
         DaisyDiff.diffTag( new BufferedReader( new InputStreamReader( old ) ), new BufferedReader( new InputStreamReader( test ) ), out.getHandler() );
 
@@ -45,7 +47,7 @@ public class TestDiff {
         final InputStream test = Thread.currentThread().getContextClassLoader().getResourceAsStream( "law/20160614.html.txt" );
         assertThat( test, notNullValue() );
 
-        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-h.html" ), true );
+        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-h.html" ), OutputMode.HTML );
 
         DaisyDiff.diffHistogram( new BufferedReader( new InputStreamReader( old ) ), new BufferedReader( new InputStreamReader( test ) ), out.getHandler() );
 
@@ -66,7 +68,7 @@ public class TestDiff {
         final InputStream test = Thread.currentThread().getContextClassLoader().getResourceAsStream( "law/20160614.html.txt" );
         assertThat( test, notNullValue() );
 
-        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-hr.html" ), true );
+        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-hr.html" ), OutputMode.HTML );
 
         DaisyDiff.diffHistogramRaw( old, test, out.getHandler() );
 

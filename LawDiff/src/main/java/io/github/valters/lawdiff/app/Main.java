@@ -15,16 +15,28 @@ import java.util.Collections;
 import org.outerj.daisy.diff.DaisyDiff;
 
 import io.github.valters.lawdiff.HtmlContentOutput;
+import io.github.valters.lawdiff.HtmlContentOutput.OutputMode;
 
 public class Main {
 
     public static void main( final String[] args ) {
         try {
-            new App(args).run( "txt/", "diff/" );
+            if( args.length == 2 || args.length == 3 ) {
+                new App(args).run( args[0], args[1] );
+            }
+            else {
+                usage();
+            }
+
         }
         catch( final Exception e ) {
             e.printStackTrace();
         }
+    }
+
+    private static void usage() {
+        System.out.println( "Usage: lawdiff-app <law folder> <diff output folder> [--debug]" );
+        System.out.println( "  If running with '--debug' flag additional diff will be produced using another/competing algorithm." );
     }
 
     public static class App {
@@ -32,17 +44,26 @@ public class Main {
         private final boolean debugMode;
 
         public App( final String[] args ) {
-            if( args.length == 1 && "--debug".equals( args[0] ) ) {
-                System.out.println( ". running in debug mode" );
-                debugMode = true;
-            }
-            else {
+            if( args.length == 3 ) {
+                debugMode = checkDebug( args[2] );
+            } else {
                 debugMode = false;
             }
         }
 
+        private boolean checkDebug( final String option ) {
+            if( "--debug".equals( option ) ) {
+                System.out.println( ". running in debug mode" );
+                return true;
+            }
+            else {
+                System.err.println( "Unrecognized option: "+option );
+                return false;
+            }
+        }
+
         public void run( final String inDirArg, final String outDirArg ) throws Exception {
-            System.out.println( "Generating law diffs..." );
+            System.out.println( "Generating law diffs: "+inDirArg+" -> "+outDirArg+"..." );
 
             final Path inDir = FileSystems.getDefault().getPath( inDirArg );
             if( ! Files.isDirectory( inDir ) ) {
@@ -81,7 +102,7 @@ public class Main {
             final String diffName = fileB.getFileName()+"-diff-d.html";
             System.out.println("diff: "+fileA+" : "+fileB+" -> "+diffName );
 
-            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), true );
+            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), OutputMode.HTML );
 
             try( BufferedReader brA = Files.newBufferedReader( fileA, StandardCharsets.UTF_8 );
                  BufferedReader brB = Files.newBufferedReader( fileB, StandardCharsets.UTF_8 ) ) {
@@ -96,7 +117,7 @@ public class Main {
             final String diffName = fileB.getFileName()+"-diff.html";
             System.out.println("diff: "+fileA+" : "+fileB+" -> "+diffName );
 
-            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), true );
+            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), OutputMode.HTML );
 
             try( InputStream brA = new FileInputStream( fileA.toFile() );
                     InputStream brB = new FileInputStream( fileB.toFile()  ) ) {

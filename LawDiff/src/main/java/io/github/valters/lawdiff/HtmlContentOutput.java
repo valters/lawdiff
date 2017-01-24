@@ -29,6 +29,9 @@ import org.xml.sax.helpers.AttributesImpl;
 /** provides couple helpers to make html writing easier */
 public class HtmlContentOutput {
 
+    /** if diff should produce html or xml ("machine readable") output */
+    public static enum OutputMode { XML, HTML };
+
     /** how to convert XML into HTML */
     protected static final String HTML_TRANSFORMATION_XSL = "xslfilter/tagheader-lawdiff.xsl";
 
@@ -43,13 +46,13 @@ public class HtmlContentOutput {
         this.consumer = content;
     }
 
-    public static HtmlContentOutput startOutput( final File outFile, final boolean produceHtml ) throws Exception {
+    public static HtmlContentOutput startOutput( final File outFile, final OutputMode mode ) throws Exception {
         final SAXTransformerFactory tf = XmlDomUtils.saxTransformerFactory();
 
         final TransformerHandler content = XmlDomUtils.newTransformerHandler( tf );
         content.setResult(new StreamResult( outFile ));
 
-        final ContentHandler consumer =  produceHtml ? applyTransform( content ) : content;
+        final ContentHandler consumer = mode == OutputMode.HTML ? applyTransform( content ) : content;
 
         startOutput( consumer );
 
