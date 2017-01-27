@@ -35,18 +35,22 @@ public class Main {
     }
 
     private static void usage() {
-        System.out.println( "Usage: lawdiff-app <law folder> <diff output folder> [--debug]" );
+        System.out.println( "Usage: lawdiff-app <law folder> <diff output folder> [--xml] [--debug]" );
+        System.out.println( "  By default HTML diff report is produced. Use '--xml' flag to output machine-readable XML." );
         System.out.println( "  If running with '--debug' flag additional diff will be produced using another/competing algorithm." );
     }
 
     public static class App {
 
+        private final boolean xmlMode;
         private final boolean debugMode;
 
         public App( final String[] args ) {
             if( args.length == 3 ) {
                 debugMode = checkDebug( args[2] );
+                xmlMode = checkXmlMode( args[2] );
             } else {
+                xmlMode = false;
                 debugMode = false;
             }
         }
@@ -57,7 +61,16 @@ public class Main {
                 return true;
             }
             else {
-                System.err.println( "Unrecognized option: "+option );
+                return false;
+            }
+        }
+
+        private boolean checkXmlMode( final String option ) {
+            if( "--xml".equals( option ) ) {
+                System.out.println( ". xml mode" );
+                return true;
+            }
+            else {
                 return false;
             }
         }
@@ -102,7 +115,8 @@ public class Main {
             final String diffName = fileB.getFileName()+"-diff-d.html";
             System.out.println("diff: "+fileA+" : "+fileB+" -> "+diffName );
 
-            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), OutputMode.HTML );
+            final OutputMode outputMode = xmlMode ? OutputMode.XML :OutputMode.HTML;
+            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), outputMode );
 
             try( BufferedReader brA = Files.newBufferedReader( fileA, StandardCharsets.UTF_8 );
                  BufferedReader brB = Files.newBufferedReader( fileB, StandardCharsets.UTF_8 ) ) {
@@ -114,10 +128,14 @@ public class Main {
         }
 
         private void generateHistogramDiff( final Path fileA, final Path fileB, final Path outDir ) throws Exception {
-            final String diffName = fileB.getFileName()+"-diff.html";
+
+            final OutputMode outputMode = xmlMode ? OutputMode.XML :OutputMode.HTML;
+            final String ext = xmlMode ? ".xml" : ".html";
+
+            final String diffName = fileB.getFileName()+"-diff"+ext;
             System.out.println("diff: "+fileA+" : "+fileB+" -> "+diffName );
 
-            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), OutputMode.HTML );
+            final HtmlContentOutput out = HtmlContentOutput.startOutput( new File( outDir.toFile(), diffName ), outputMode );
 
             try( InputStream brA = new FileInputStream( fileA.toFile() );
                     InputStream brB = new FileInputStream( fileB.toFile()  ) ) {
