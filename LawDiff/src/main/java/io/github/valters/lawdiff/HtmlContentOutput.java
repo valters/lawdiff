@@ -26,6 +26,8 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import io.github.valters.xml.XmlDomUtils;
+
 /** provides couple helpers to make html writing easier */
 public class HtmlContentOutput {
 
