@@ -96,10 +96,20 @@ public class Main {
                 }
             }
 
+            if( files.size() == 0 ) {
+                System.out.println(" . no versions: do nothing" );
+                return;
+            }
+
             Collections.sort( files );
 
-            for( int i = 1; i < files.size(); i++ ) {
+            // generate no-op diff for the very first version of law
+            generateDiff( files.get( 0 ), files.get( 0 ), outDir );
+
+            int i = 1;
+            while( i < files.size() ) {
                 generateDiff( files.get( i - 1 ), files.get( i ), outDir );
+                i++;
             }
 
         }
