@@ -74,4 +74,20 @@ public class TestDiff {
 
         out.finishOutput();
     }
+
+    @Test
+    public void shouldProduceNoChangesDiffHistogramRaw() throws Exception {
+
+        final InputStream old = Thread.currentThread().getContextClassLoader().getResourceAsStream( "law/20030605.html.txt" );
+        assertThat( old, notNullValue() );
+        final InputStream test = Thread.currentThread().getContextClassLoader().getResourceAsStream( "law/20030605.html.txt" );
+        assertThat( test, notNullValue() );
+
+        final HtmlContentOutput out = HtmlContentOutput.startOutput( new File("./target/test-eq.html" ), OutputMode.XML );
+
+        DaisyDiff.diffHistogramRaw( old, test, out.getHandler() );
+
+        out.finishOutput();
+    }
+
 }
