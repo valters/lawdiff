@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>io.github.valters.build</groupId>
         <artifactId>lawdiff-parent</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-  <groupId>io.github.valters</groupId>
-  <artifactId>lawdiff</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
-  <packaging>jar</packaging>
+    <groupId>io.github.valters</groupId>
+    <artifactId>lawdiff</artifactId>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <packaging>jar</packaging>
 
-  <description>Generates simple diffs between law full text versions.</description>
+    <description>Generates simple diffs between law full text versions.</description>
 
-  <url>http://valters.github.io/lawdiff/</url>
-  <licenses>
-    <license>
-      <name>Apache License Version 2.0, January 2004</name>
-      <url>http://www.apache.org/licenses/</url>
-    </license>
-  </licenses>
+    <url>http://valters.github.io/lawdiff/</url>
+    <licenses>
+        <license>
+            <name>Apache License Version 2.0, January 2004</name>
+            <url>http://www.apache.org/licenses/</url>
+        </license>
+    </licenses>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
-    <dependency>
-        <groupId>io.github.valters</groupId>
-        <artifactId>daisydiff</artifactId>
-        <version>1.1.0</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.valters</groupId>
+            <artifactId>daisydiff</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.valters</groupId>
+            <artifactId>valters-xml</artifactId>
+        </dependency>
 
     <!-- Test -->
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 
 </project>
