@@ -16,6 +16,7 @@ import org.outerj.daisy.diff.DaisyDiff;
 
 import io.github.valters.lawdiff.HtmlContentOutput;
 import io.github.valters.lawdiff.HtmlContentOutput.OutputMode;
+import io.github.valters.lawdiff.RawTextParse;
 
 public class Main {
 
@@ -150,7 +151,7 @@ public class Main {
             try( InputStream brA = new FileInputStream( fileA.toFile() );
                     InputStream brB = new FileInputStream( fileB.toFile()  ) ) {
 
-                   DaisyDiff.diffHistogramRaw( brA, brB, out.getHandler() );
+                   DaisyDiff.diffHistogramRaw( brA, brB, out.getHandler(), RawTextParse.MAP_SENTENCES_GREEDY );
                }
 
             out.finishOutput();
