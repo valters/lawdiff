@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
 
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 
     <description>Tools to semantically compare legal texts.</description>
 
@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>io.github.valters</groupId>
                 <artifactId>daisydiff</artifactId>
-                <version>1.1.1</version>
+                <version>1.2.0</version>
             </dependency>
             <dependency>
                 <groupId>io.github.valters</groupId>
